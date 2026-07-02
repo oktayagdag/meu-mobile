@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meu_mobile/app/app.dart';
 
 void main() {
-  runApp(const MeuMobileApp());
-}
-
-class MeuMobileApp extends StatelessWidget {
-  const MeuMobileApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('MEÜ Mobile'),
-        ),
-      ),
-    );
-  }
+  runApp(
+    const ProviderScope(
+      child: MeuMobileApp(),
+    ),
+  );
 }
