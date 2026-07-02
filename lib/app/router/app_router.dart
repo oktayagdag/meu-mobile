@@ -6,7 +6,7 @@ final class AppRouter {
   const AppRouter._();
 
   static final GoRouter router = GoRouter(
-    initialLocation: '/dev/catalog',
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
