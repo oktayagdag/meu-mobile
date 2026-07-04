@@ -10,6 +10,8 @@ import 'package:meu_mobile/features/profile/presentation/widgets/profile_stat_gr
 import 'package:meu_mobile/features/profile/presentation/widgets/profile_switch_tile.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/typography/app_section_title.dart';
+import 'package:meu_mobile/app/constants/app_info.dart';
+import 'package:meu_mobile/shared/utils/app_feedback.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -18,13 +20,13 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(userProfileProvider);
     final stats = ref.watch(profileStatsProvider);
-    final announcementNotifications = ref.watch(announcementNotificationProvider);
+    final announcementNotifications = ref.watch(
+      announcementNotificationProvider,
+    );
     final cafeteriaReminder = ref.watch(cafeteriaReminderProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profil'),
-      ),
+      appBar: AppBar(title: const Text('Profil')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -47,21 +49,33 @@ class ProfilePage extends ConsumerWidget {
               icon: Icons.badge_rounded,
               title: 'Öğrenci Bilgileri',
               description: '${profile.studentNumber} • ${profile.email}',
-              onTap: () {},
+              onTap: () {
+                showComingSoonSnackBar(
+                  context,
+                  featureName: 'Öğrenci bilgileri',
+                );
+              },
             ),
             const Gap(AppSpacing.sm),
             ProfileMenuTile(
               icon: Icons.favorite_rounded,
               title: 'Favorilerim',
               description: 'Favori ring hatları ve takip edilen içerikler',
-              onTap: () {},
+              onTap: () {
+                showComingSoonSnackBar(context, featureName: 'Favorilerim');
+              },
             ),
             const Gap(AppSpacing.sm),
             ProfileMenuTile(
               icon: Icons.help_outline_rounded,
               title: 'Yardım ve Geri Bildirim',
               description: 'Uygulama hakkında görüş bildir',
-              onTap: () {},
+              onTap: () {
+                showComingSoonSnackBar(
+                  context,
+                  featureName: 'Yardım ve geri bildirim',
+                );
+              },
             ),
             const Gap(AppSpacing.lg),
 
@@ -102,18 +116,18 @@ class ProfilePage extends ConsumerWidget {
                   const Gap(AppSpacing.md),
                   Expanded(
                     child: Text(
-                      'MEÜ Mobile v1.0.0',
+                      '${AppInfo.appName} v${AppInfo.version}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   Text(
-                    'MVP',
+                    AppInfo.stage,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.textSecondary,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ],
               ),

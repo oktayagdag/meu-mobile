@@ -10,12 +10,10 @@ import 'package:meu_mobile/shared/widgets/buttons/app_button.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 import 'package:meu_mobile/shared/widgets/states/empty_state.dart';
+import 'package:meu_mobile/shared/utils/app_feedback.dart';
 
 class ClubDetailPage extends ConsumerWidget {
-  const ClubDetailPage({
-    required this.clubId,
-    super.key,
-  });
+  const ClubDetailPage({required this.clubId, super.key});
 
   final String clubId;
 
@@ -36,7 +34,8 @@ class ClubDetailPage extends ConsumerWidget {
       return const Scaffold(
         body: EmptyState(
           title: 'Topluluk bulunamadı',
-          description: 'Açmak istediğin topluluk kaldırılmış veya güncellenmiş olabilir.',
+          description:
+              'Açmak istediğin topluluk kaldırılmış veya güncellenmiş olabilir.',
           icon: Icons.groups_outlined,
         ),
       );
@@ -46,9 +45,7 @@ class ClubDetailPage extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Topluluk Detayı'),
-      ),
+      appBar: AppBar(title: const Text('Topluluk Detayı')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -77,8 +74,9 @@ class ClubDetailPage extends ConsumerWidget {
                         child: StatusBadge(
                           text: club.category.label,
                           foregroundColor: categoryColor,
-                          backgroundColor:
-                              categoryColor.withValues(alpha: 0.12),
+                          backgroundColor: categoryColor.withValues(
+                            alpha: 0.12,
+                          ),
                         ),
                       ),
                     ],
@@ -123,9 +121,7 @@ class ClubDetailPage extends ConsumerWidget {
             AppCard(
               child: Text(
                 club.description,
-                style: textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                ),
+                style: textTheme.bodyLarge?.copyWith(height: 1.6),
               ),
             ),
             const Gap(AppSpacing.md),
@@ -135,7 +131,12 @@ class ClubDetailPage extends ConsumerWidget {
                   child: AppButton(
                     text: 'WhatsApp',
                     icon: Icons.chat_rounded,
-                    onPressed: () {},
+                    onPressed: () {
+                      showComingSoonSnackBar(
+                        context,
+                        featureName: 'WhatsApp bağlantısı',
+                      );
+                    },
                   ),
                 ),
                 const Gap(AppSpacing.sm),
@@ -144,7 +145,12 @@ class ClubDetailPage extends ConsumerWidget {
                     text: 'Instagram',
                     type: AppButtonType.secondary,
                     icon: Icons.camera_alt_rounded,
-                    onPressed: () {},
+                    onPressed: () {
+                      showComingSoonSnackBar(
+                        context,
+                        featureName: 'Instagram bağlantısı',
+                      );
+                    },
                   ),
                 ),
               ],
@@ -207,11 +213,7 @@ class _InfoRow extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(
-          icon,
-          color: AppColors.primary,
-          size: 22,
-        ),
+        Icon(icon, color: AppColors.primary, size: 22),
         const Gap(AppSpacing.md),
         Expanded(
           child: Column(
