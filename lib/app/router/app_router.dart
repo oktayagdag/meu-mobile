@@ -12,6 +12,8 @@ import 'package:meu_mobile/features/announcements/presentation/pages/announcemen
 import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
 import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.dart';
 import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
+import 'package:meu_mobile/features/clubs/presentation/pages/club_detail_page.dart';
+import 'package:meu_mobile/features/clubs/presentation/pages/clubs_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -131,11 +133,18 @@ final class AppRouter {
               GoRoute(
                 path: '/clubs',
                 name: 'clubs',
-                builder: (context, state) => const FeaturePlaceholderPage(
-                  title: 'Topluluklar',
-                  description: 'Öğrenci toplulukları burada listelenecek.',
-                  icon: Icons.groups_rounded,
-                ),
+                builder: (context, state) => const ClubsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':clubId',
+                    name: 'club-detail',
+                    builder: (context, state) {
+                      final clubId = state.pathParameters['clubId'] ?? '';
+
+                      return ClubDetailPage(clubId: clubId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
