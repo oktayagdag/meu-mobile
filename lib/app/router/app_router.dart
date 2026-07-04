@@ -9,6 +9,7 @@ import 'package:meu_mobile/features/ring/presentation/pages/ring_page.dart';
 import 'package:meu_mobile/features/splash/presentation/pages/splash_page.dart';
 import 'package:meu_mobile/shared/widgets/states/feature_placeholder_page.dart';
 import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
+import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -82,6 +83,20 @@ final class AppRouter {
                 path: '/announcements',
                 name: 'announcements',
                 builder: (context, state) => const AnnouncementsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':announcementId',
+                    name: 'announcement-detail',
+                    builder: (context, state) {
+                      final announcementId =
+                          state.pathParameters['announcementId'] ?? '';
+
+                      return AnnouncementDetailPage(
+                        announcementId: announcementId,
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

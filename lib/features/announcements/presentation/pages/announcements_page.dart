@@ -7,6 +7,7 @@ import 'package:meu_mobile/features/announcements/presentation/widgets/announcem
 import 'package:meu_mobile/features/announcements/presentation/widgets/announcement_list_card.dart';
 import 'package:meu_mobile/shared/widgets/inputs/app_search_field.dart';
 import 'package:meu_mobile/shared/widgets/states/empty_state.dart';
+import 'package:go_router/go_router.dart';
 
 class AnnouncementsPage extends ConsumerWidget {
   const AnnouncementsPage({super.key});
@@ -17,9 +18,7 @@ class AnnouncementsPage extends ConsumerWidget {
     final announcements = ref.watch(filteredAnnouncementsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Duyurular'),
-      ),
+      appBar: AppBar(title: const Text('Duyurular')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -33,7 +32,9 @@ class AnnouncementsPage extends ConsumerWidget {
             AppSearchField(
               hintText: 'Duyuru ara...',
               onChanged: (value) {
-                ref.read(announcementSearchQueryProvider.notifier).update(value);
+                ref
+                    .read(announcementSearchQueryProvider.notifier)
+                    .update(value);
               },
             ),
             const Gap(AppSpacing.md),
@@ -59,7 +60,11 @@ class AnnouncementsPage extends ConsumerWidget {
                     children: [
                       AnnouncementListCard(
                         announcement: announcements[index],
-                        onTap: () {},
+                        onTap: () {
+                          context.go(
+                            '/announcements/${announcements[index].id}',
+                          );
+                        },
                       ),
                       if (index != announcements.length - 1)
                         const Gap(AppSpacing.sm),
