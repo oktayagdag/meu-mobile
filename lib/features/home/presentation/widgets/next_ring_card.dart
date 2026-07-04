@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
+import 'package:go_router/go_router.dart';
 
 class NextRingCard extends StatelessWidget {
   const NextRingCard({super.key});
@@ -11,6 +12,9 @@ class NextRingCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AppCard(
+      onTap: () {
+          context.go('/ring');
+      },
       child: Row(
         children: [
           const Icon(Icons.directions_bus_rounded, size: 32),

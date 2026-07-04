@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
@@ -11,6 +12,9 @@ class TodayFoodCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AppCard(
+      onTap: () {
+        context.go('/food');
+      },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
