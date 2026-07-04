@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
+import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class TodayFoodCard extends StatelessWidget {
   const TodayFoodCard({super.key});
@@ -19,18 +19,10 @@ class TodayFoodCard extends StatelessWidget {
       },
       child: Row(
         children: [
-          Container(
-            width: 54,
-            height: 54,
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.10),
-              borderRadius: AppRadius.lg,
-            ),
-            child: const Icon(
-              Icons.restaurant_menu_rounded,
-              color: AppColors.primary,
-              size: 28,
-            ),
+          AppIconContainer(
+            icon: Icons.restaurant_menu_rounded,
+            iconColor: AppColors.primary,
+            backgroundColor: AppColors.primary.withValues(alpha: 0.10),
           ),
           const Gap(AppSpacing.md),
           Expanded(

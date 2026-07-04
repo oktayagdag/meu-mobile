@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
+import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class NextRingCard extends StatelessWidget {
   const NextRingCard({super.key});
@@ -19,18 +19,10 @@ class NextRingCard extends StatelessWidget {
       },
       child: Row(
         children: [
-          Container(
-            width: 54,
-            height: 54,
-            decoration: BoxDecoration(
-              color: AppColors.secondary.withValues(alpha: 0.12),
-              borderRadius: AppRadius.lg,
-            ),
-            child: const Icon(
-              Icons.directions_bus_rounded,
-              color: AppColors.secondary,
-              size: 28,
-            ),
+          AppIconContainer(
+            icon: Icons.directions_bus_rounded,
+            iconColor: AppColors.secondary,
+            backgroundColor: AppColors.secondary.withValues(alpha: 0.12),
           ),
           const Gap(AppSpacing.md),
           Expanded(

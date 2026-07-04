@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/home/application/providers/home_mock_provider.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/announcement_card.dart';
+import 'package:meu_mobile/features/home/presentation/widgets/campus_hero_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/dashboard_section.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/event_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/greeting_header.dart';
@@ -35,6 +36,10 @@ class HomePage extends ConsumerWidget {
             children: [
               const GreetingHeader(),
               const Gap(AppSpacing.lg),
+
+              const CampusHeroCard(),
+              const Gap(AppSpacing.lg),
+
               const DashboardSection(
                 title: 'Kampüste Bugün',
                 child: Column(
@@ -46,11 +51,13 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
               const Gap(AppSpacing.lg),
+
               DashboardSection(
                 title: 'Hızlı Erişim',
                 child: QuickActionGrid(items: quickActions),
               ),
               const Gap(AppSpacing.lg),
+
               DashboardSection(
                 title: 'Son Duyurular',
                 actionText: 'Tümü',
@@ -60,6 +67,7 @@ class HomePage extends ConsumerWidget {
                 child: AnnouncementCard(announcement: latestAnnouncement),
               ),
               const Gap(AppSpacing.lg),
+
               DashboardSection(
                 title: 'Yaklaşan Etkinlik',
                 actionText: 'Tümü',

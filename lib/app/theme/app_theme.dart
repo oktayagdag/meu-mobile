@@ -30,6 +30,13 @@ final class AppTheme {
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 72,
+        elevation: 0,
+        backgroundColor: AppColors.surface,
+        indicatorColor: AppColors.primary.withValues(alpha: 0.12),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      ),
     );
   }
 
@@ -53,6 +60,13 @@ final class AppTheme {
         centerTitle: false,
         backgroundColor: AppColors.darkBackground,
         elevation: 0,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 72,
+        elevation: 0,
+        backgroundColor: AppColors.darkSurface,
+        indicatorColor: AppColors.primary.withValues(alpha: 0.18),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
     );
   }
