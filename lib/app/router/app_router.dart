@@ -10,6 +10,8 @@ import 'package:meu_mobile/features/splash/presentation/pages/splash_page.dart';
 import 'package:meu_mobile/shared/widgets/states/feature_placeholder_page.dart';
 import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
 import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
+import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.dart';
+import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -107,11 +109,18 @@ final class AppRouter {
               GoRoute(
                 path: '/events',
                 name: 'events',
-                builder: (context, state) => const FeaturePlaceholderPage(
-                  title: 'Etkinlikler',
-                  description: 'Yaklaşan etkinlikler burada listelenecek.',
-                  icon: Icons.event_rounded,
-                ),
+                builder: (context, state) => const EventsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':eventId',
+                    name: 'event-detail',
+                    builder: (context, state) {
+                      final eventId = state.pathParameters['eventId'] ?? '';
+
+                      return EventDetailPage(eventId: eventId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
