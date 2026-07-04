@@ -3,11 +3,23 @@ class FoodEntity {
     required this.day,
     required this.date,
     required this.items,
-    this.calories,
+    required this.totalCalories,
   });
 
   final String day;
   final String date;
-  final List<String> items;
-  final int? calories;
+  final List<FoodMenuItemEntity> items;
+  final int totalCalories;
+}
+
+class FoodMenuItemEntity {
+  const FoodMenuItemEntity({
+    required this.name,
+    required this.calories,
+    required this.icon,
+  });
+
+  final String name;
+  final int calories;
+  final String icon;
 }

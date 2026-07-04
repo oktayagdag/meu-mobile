@@ -5,38 +5,163 @@ final weeklyFoodProvider = Provider<List<FoodEntity>>((ref) {
   return const [
     FoodEntity(
       day: 'Pazartesi',
-      date: '29 Haziran',
-      items: ['Mercimek Çorbası', 'Tavuk Sote', 'Pilav', 'Ayran'],
-      calories: 820,
+      date: '28 Haziran 2024',
+      totalCalories: 820,
+      items: [
+        FoodMenuItemEntity(
+          name: 'Mercimek Çorbası',
+          calories: 120,
+          icon: '🍲',
+        ),
+        FoodMenuItemEntity(
+          name: 'Tavuk Sote',
+          calories: 320,
+          icon: '🍗',
+        ),
+        FoodMenuItemEntity(
+          name: 'Pilav',
+          calories: 260,
+          icon: '🍚',
+        ),
+        FoodMenuItemEntity(
+          name: 'Ayran',
+          calories: 120,
+          icon: '🥛',
+        ),
+      ],
     ),
     FoodEntity(
       day: 'Salı',
-      date: '30 Haziran',
-      items: ['Ezogelin Çorbası', 'Köfte', 'Makarna', 'Yoğurt'],
-      calories: 890,
+      date: '29 Haziran 2024',
+      totalCalories: 890,
+      items: [
+        FoodMenuItemEntity(
+          name: 'Ezogelin Çorbası',
+          calories: 130,
+          icon: '🍲',
+        ),
+        FoodMenuItemEntity(
+          name: 'Köfte',
+          calories: 360,
+          icon: '🍖',
+        ),
+        FoodMenuItemEntity(
+          name: 'Makarna',
+          calories: 280,
+          icon: '🍝',
+        ),
+        FoodMenuItemEntity(
+          name: 'Yoğurt',
+          calories: 120,
+          icon: '🥛',
+        ),
+      ],
     ),
     FoodEntity(
       day: 'Çarşamba',
-      date: '1 Temmuz',
-      items: ['Yayla Çorbası', 'Etli Nohut', 'Bulgur Pilavı', 'Salata'],
-      calories: 760,
+      date: '30 Haziran 2024',
+      totalCalories: 700,
+      items: [
+        FoodMenuItemEntity(
+          name: 'Mercimek Çorbası',
+          calories: 120,
+          icon: '🍲',
+        ),
+        FoodMenuItemEntity(
+          name: 'Tavuk Sote',
+          calories: 320,
+          icon: '🍗',
+        ),
+        FoodMenuItemEntity(
+          name: 'Pirinç Pilavı',
+          calories: 200,
+          icon: '🍚',
+        ),
+        FoodMenuItemEntity(
+          name: 'Ayran',
+          calories: 60,
+          icon: '🥛',
+        ),
+      ],
     ),
     FoodEntity(
       day: 'Perşembe',
-      date: '2 Temmuz',
-      items: ['Domates Çorbası', 'Tavuk Döner', 'Pirinç Pilavı', 'Ayran'],
-      calories: 910,
+      date: '1 Temmuz 2024',
+      totalCalories: 910,
+      items: [
+        FoodMenuItemEntity(
+          name: 'Domates Çorbası',
+          calories: 140,
+          icon: '🍲',
+        ),
+        FoodMenuItemEntity(
+          name: 'Tavuk Döner',
+          calories: 380,
+          icon: '🍗',
+        ),
+        FoodMenuItemEntity(
+          name: 'Pirinç Pilavı',
+          calories: 230,
+          icon: '🍚',
+        ),
+        FoodMenuItemEntity(
+          name: 'Ayran',
+          calories: 160,
+          icon: '🥛',
+        ),
+      ],
     ),
     FoodEntity(
       day: 'Cuma',
-      date: '3 Temmuz',
-      items: ['Tarhana Çorbası', 'Sebzeli Güveç', 'Makarna', 'Meyve'],
-      calories: 700,
+      date: '2 Temmuz 2024',
+      totalCalories: 760,
+      items: [
+        FoodMenuItemEntity(
+          name: 'Tarhana Çorbası',
+          calories: 120,
+          icon: '🍲',
+        ),
+        FoodMenuItemEntity(
+          name: 'Sebzeli Güveç',
+          calories: 290,
+          icon: '🥘',
+        ),
+        FoodMenuItemEntity(
+          name: 'Makarna',
+          calories: 250,
+          icon: '🍝',
+        ),
+        FoodMenuItemEntity(
+          name: 'Meyve',
+          calories: 100,
+          icon: '🍎',
+        ),
+      ],
     ),
   ];
 });
 
-final todayFoodProvider = Provider<FoodEntity>((ref) {
-  final weeklyFoods = ref.watch(weeklyFoodProvider);
-  return weeklyFoods[3];
+final selectedFoodIndexProvider =
+    NotifierProvider<SelectedFoodIndexNotifier, int>(
+  SelectedFoodIndexNotifier.new,
+);
+
+class SelectedFoodIndexNotifier extends Notifier<int> {
+  @override
+  int build() => 2;
+
+  void select(int index) {
+    state = index;
+  }
+}
+
+final selectedFoodProvider = Provider<FoodEntity>((ref) {
+  final foods = ref.watch(weeklyFoodProvider);
+  final selectedIndex = ref.watch(selectedFoodIndexProvider);
+
+  if (selectedIndex < 0 || selectedIndex >= foods.length) {
+    return foods.first;
+  }
+
+  return foods[selectedIndex];
 });

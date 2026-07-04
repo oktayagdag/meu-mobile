@@ -13,7 +13,7 @@ final class AppRouter {
   const AppRouter._();
 
   static final GoRouter router = GoRouter(
-    initialLocation: '/dev/catalog',
+    initialLocation: '/splash',
     routes: [
       /// Splash - Shell dışında, tam ekran
       GoRoute(
