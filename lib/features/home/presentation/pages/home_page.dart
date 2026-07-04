@@ -64,7 +64,12 @@ class HomePage extends ConsumerWidget {
                 onActionTap: () {
                   context.go('/announcements');
                 },
-                child: AnnouncementCard(announcement: latestAnnouncement),
+                child: AnnouncementCard(
+                  announcement: latestAnnouncement,
+                  onTap: () {
+                    context.go('/announcements');
+                  },
+                ),
               ),
               const Gap(AppSpacing.lg),
 
@@ -74,7 +79,12 @@ class HomePage extends ConsumerWidget {
                 onActionTap: () {
                   context.go('/events');
                 },
-                child: EventCard(event: upcomingEvent),
+                child: EventCard(
+                  event: upcomingEvent,
+                  onTap: () {
+                    context.go('/events');
+                  },
+                ),
               ),
             ],
           ),
