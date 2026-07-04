@@ -8,6 +8,7 @@ import 'package:meu_mobile/features/onboarding/presentation/pages/onboarding_pag
 import 'package:meu_mobile/features/ring/presentation/pages/ring_page.dart';
 import 'package:meu_mobile/features/splash/presentation/pages/splash_page.dart';
 import 'package:meu_mobile/shared/widgets/states/feature_placeholder_page.dart';
+import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -63,8 +64,7 @@ final class AppRouter {
                   GoRoute(
                     path: 'calendar',
                     name: 'calendar',
-                    builder: (context, state) =>
-                        const FeaturePlaceholderPage(
+                    builder: (context, state) => const FeaturePlaceholderPage(
                       title: 'Akademik Takvim',
                       description: 'Akademik takvim modülü yakında eklenecek.',
                       icon: Icons.calendar_month_rounded,
@@ -81,11 +81,7 @@ final class AppRouter {
               GoRoute(
                 path: '/announcements',
                 name: 'announcements',
-                builder: (context, state) => const FeaturePlaceholderPage(
-                  title: 'Duyurular',
-                  description: 'Üniversite duyuruları burada listelenecek.',
-                  icon: Icons.campaign_rounded,
-                ),
+                builder: (context, state) => const AnnouncementsPage(),
               ),
             ],
           ),
