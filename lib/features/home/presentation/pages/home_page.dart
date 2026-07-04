@@ -3,24 +3,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
+import 'package:meu_mobile/features/home/application/providers/home_dashboard_provider.dart';
 import 'package:meu_mobile/features/home/application/providers/home_mock_provider.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/announcement_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/campus_hero_card.dart';
-import 'package:meu_mobile/features/home/presentation/widgets/dashboard_section.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/event_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/greeting_header.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/next_ring_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/quick_action_grid.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/today_food_card.dart';
+import 'package:meu_mobile/features/profile/application/providers/profile_mock_provider.dart';
+import 'package:meu_mobile/shared/widgets/typography/app_section_title.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final profile = ref.watch(userProfileProvider);
     final quickActions = ref.watch(quickActionsProvider);
-    final latestAnnouncement = ref.watch(latestAnnouncementProvider);
-    final upcomingEvent = ref.watch(upcomingEventProvider);
+
+    final todayFood = ref.watch(homeTodayFoodProvider);
+    final nextRingRoute = ref.watch(homeNextRingRouteProvider);
+    final latestAnnouncement = ref.watch(homeLatestAnnouncementProvider);
+    final upcomingEvent = ref.watch(homeUpcomingEventProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -34,58 +40,72 @@ class HomePage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const GreetingHeader(),
-              const Gap(AppSpacing.lg),
+              GreetingHeader(name: profile.fullName),
+              const Gap(AppSpacing.md),
 
-              const CampusHeroCard(),
-              const Gap(AppSpacing.lg),
-
-              const DashboardSection(
-                title: 'Kampüste Bugün',
-                child: Column(
-                  children: [
-                    TodayFoodCard(),
-                    Gap(AppSpacing.sm),
-                    NextRingCard(),
-                  ],
-                ),
-              ),
-              const Gap(AppSpacing.lg),
-
-              DashboardSection(
-                title: 'Hızlı Erişim',
-                child: QuickActionGrid(items: quickActions),
-              ),
-              const Gap(AppSpacing.lg),
-
-              DashboardSection(
-                title: 'Son Duyurular',
-                actionText: 'Tümü',
-                onActionTap: () {
-                  context.go('/announcements');
+              CampusHeroCard(
+                onExploreTap: () {
+                  context.go('/clubs');
                 },
-                child: AnnouncementCard(
+              ),
+              const Gap(AppSpacing.lg),
+
+              const AppSectionTitle(title: 'Kampüste Bugün'),
+              const Gap(AppSpacing.sm),
+
+              if (todayFood != null)
+                TodayFoodCard(
+                  food: todayFood,
+                  onTap: () {
+                    context.go('/food');
+                  },
+                ),
+
+              if (todayFood != null && nextRingRoute != null)
+                const Gap(AppSpacing.sm),
+
+              if (nextRingRoute != null)
+                NextRingCard(
+                  route: nextRingRoute,
+                  onTap: () {
+                    context.go('/ring');
+                  },
+                ),
+
+              const Gap(AppSpacing.lg),
+
+              const AppSectionTitle(title: 'Hızlı Erişim'),
+              const Gap(AppSpacing.sm),
+              QuickActionGrid(
+                actions: quickActions,
+                onActionTap: (route) {
+                  context.go(route);
+                },
+              ),
+
+              if (latestAnnouncement != null) ...[
+                const Gap(AppSpacing.lg),
+                const AppSectionTitle(title: 'Son Duyuru'),
+                const Gap(AppSpacing.sm),
+                AnnouncementCard(
                   announcement: latestAnnouncement,
                   onTap: () {
-                    context.go('/announcements');
+                    context.go('/announcements/${latestAnnouncement.id}');
                   },
                 ),
-              ),
-              const Gap(AppSpacing.lg),
+              ],
 
-              DashboardSection(
-                title: 'Yaklaşan Etkinlik',
-                actionText: 'Tümü',
-                onActionTap: () {
-                  context.go('/events');
-                },
-                child: EventCard(
+              if (upcomingEvent != null) ...[
+                const Gap(AppSpacing.lg),
+                const AppSectionTitle(title: 'Yaklaşan Etkinlik'),
+                const Gap(AppSpacing.sm),
+                EventCard(
                   event: upcomingEvent,
                   onTap: () {
-                    context.go('/events');
+                    context.go('/events/${upcomingEvent.id}');
                   },
                 ),
-              ),
+              ],
             ],
           ),
         ),

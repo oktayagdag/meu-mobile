@@ -14,6 +14,7 @@ import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.
 import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
 import 'package:meu_mobile/features/clubs/presentation/pages/club_detail_page.dart';
 import 'package:meu_mobile/features/clubs/presentation/pages/clubs_page.dart';
+import 'package:meu_mobile/features/profile/presentation/pages/profile_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -155,11 +156,7 @@ final class AppRouter {
               GoRoute(
                 path: '/profile',
                 name: 'profile',
-                builder: (context, state) => const FeaturePlaceholderPage(
-                  title: 'Profil',
-                  description: 'Profil ve kişisel ayarlar burada yer alacak.',
-                  icon: Icons.person_rounded,
-                ),
+                builder: (context, state) => const ProfilePage(),
               ),
             ],
           ),

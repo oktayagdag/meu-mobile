@@ -1,63 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/home/domain/entities/quick_action_entity.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 
 class QuickActionGrid extends StatelessWidget {
   const QuickActionGrid({
-    required this.items,
+    required this.actions,
+    required this.onActionTap,
     super.key,
   });
 
-  final List<QuickActionEntity> items;
+  final List<QuickActionEntity> actions;
+  final ValueChanged<String> onActionTap;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: items.length,
+      itemCount: actions.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: AppSpacing.sm,
         crossAxisSpacing: AppSpacing.sm,
-        mainAxisExtent: 92,
+        childAspectRatio: 0.95,
       ),
       itemBuilder: (context, index) {
-        final item = items[index];
+        final action = actions[index];
 
         return AppCard(
-          onTap: () {
-            context.go(item.route);
-          },
           padding: const EdgeInsets.all(AppSpacing.sm),
+          onTap: () => onActionTap(action.route),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 42,
-                height: 42,
-                decoration: BoxDecoration(
-                  color: _backgroundColor(index),
-                  borderRadius: AppRadius.md,
-                ),
-                child: Icon(
-                  item.icon,
-                  color: _iconColor(index),
-                  size: 23,
-                ),
+              Icon(
+                action.icon,
+                color: AppColors.primary,
+                size: 28,
               ),
-              const SizedBox(height: AppSpacing.sm),
+              const Gap(AppSpacing.sm),
               Text(
-                item.title,
+                action.title,
                 textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                     ),
               ),
             ],
@@ -65,22 +54,5 @@ class QuickActionGrid extends StatelessWidget {
         );
       },
     );
-  }
-
-  Color _iconColor(int index) {
-    final colors = [
-      AppColors.primary,
-      AppColors.secondary,
-      AppColors.warning,
-      AppColors.success,
-      AppColors.error,
-      AppColors.primary,
-    ];
-
-    return colors[index % colors.length];
-  }
-
-  Color _backgroundColor(int index) {
-    return _iconColor(index).withValues(alpha: 0.10);
   }
 }

@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
-import 'package:meu_mobile/features/ring/domain/entities/ring_route_entity.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
-class NextRingCard extends StatelessWidget {
-  const NextRingCard({
-    required this.route,
+class ProfileMenuTile extends StatelessWidget {
+  const ProfileMenuTile({
+    required this.icon,
+    required this.title,
+    required this.description,
     super.key,
     this.onTap,
   });
 
-  final RingRouteEntity route;
+  final IconData icon;
+  final String title;
+  final String description;
   final VoidCallback? onTap;
 
   @override
@@ -21,15 +24,16 @@ class NextRingCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AppCard(
+      padding: const EdgeInsets.all(AppSpacing.md),
       onTap: onTap,
       child: Row(
         children: [
           AppIconContainer(
-            icon: Icons.directions_bus_rounded,
-            iconColor: AppColors.success,
-            backgroundColor: AppColors.success.withValues(alpha: 0.12),
-            size: 48,
-            iconSize: 25,
+            icon: icon,
+            iconColor: AppColors.primary,
+            backgroundColor: AppColors.primary.withValues(alpha: 0.10),
+            size: 44,
+            iconSize: 22,
           ),
           const Gap(AppSpacing.md),
           Expanded(
@@ -37,30 +41,24 @@ class NextRingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Sıradaki Ring',
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
+                  title,
+                  style: textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
-                const Gap(AppSpacing.xs),
+                const Gap(2),
                 Text(
-                  route.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyMedium?.copyWith(
+                  description,
+                  style: textTheme.labelSmall?.copyWith(
                     color: AppColors.textSecondary,
                   ),
                 ),
               ],
             ),
           ),
-          const Gap(AppSpacing.sm),
-          Text(
-            '${route.remainingMinute} dk',
-            style: textTheme.titleMedium?.copyWith(
-              color: AppColors.success,
-              fontWeight: FontWeight.w900,
-            ),
+          const Icon(
+            Icons.chevron_right_rounded,
+            color: AppColors.textSecondary,
           ),
         ],
       ),

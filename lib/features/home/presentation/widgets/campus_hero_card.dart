@@ -3,107 +3,83 @@ import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
 import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
-import 'package:meu_mobile/shared/widgets/badges/status_badge.dart';
+import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 
 class CampusHeroCard extends StatelessWidget {
-  const CampusHeroCard({super.key});
+  const CampusHeroCard({
+    super.key,
+    this.onExploreTap,
+  });
+
+  final VoidCallback? onExploreTap;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        borderRadius: AppRadius.card,
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.primary,
-            AppColors.secondary,
-          ],
+    return AppCard(
+      padding: EdgeInsets.zero,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        decoration: BoxDecoration(
+          borderRadius: AppRadius.card,
+          gradient: LinearGradient(
+            colors: [
+              AppColors.primary,
+              AppColors.secondary.withValues(alpha: 0.92),
+            ],
+          ),
         ),
-      ),
-      child: Stack(
-        children: [
-          const Positioned(
-            right: -18,
-            top: -20,
-            child: _HeroCircle(size: 110),
-          ),
-          const Positioned(
-            right: 44,
-            bottom: -32,
-            child: _HeroCircle(size: 72),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    StatusBadge(
-                      text: 'MEÜ Mobile',
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.white.withValues(alpha: 0.18),
-                    ),
-                    const Gap(AppSpacing.md),
-                    Text(
-                      'Kampüs bilgilerine hızlı eriş',
-                      style: textTheme.titleLarge?.copyWith(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(
+              Icons.account_balance_rounded,
+              color: Colors.white,
+              size: 34,
+            ),
+            const Gap(AppSpacing.md),
+            Text(
+              'MEÜ Mobile',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                  ),
+            ),
+            const Gap(AppSpacing.xs),
+            Text(
+              'Yemekhane, ring, duyurular, etkinlikler ve topluluklar tek yerde.',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.90),
+                    height: 1.4,
+                  ),
+            ),
+            const Gap(AppSpacing.md),
+            InkWell(
+              onTap: onExploreTap,
+              borderRadius: AppRadius.md,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md,
+                  vertical: AppSpacing.sm,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.18),
+                  borderRadius: AppRadius.md,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.24),
+                  ),
+                ),
+                child: Text(
+                  'Kampüsü keşfet',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
                       ),
-                    ),
-                    const Gap(AppSpacing.sm),
-                    Text(
-                      'Yemek, ring, duyuru ve etkinlikleri tek ekrandan takip et.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.86),
-                      ),
-                    ),
-                  ],
                 ),
               ),
-              const Gap(AppSpacing.md),
-              Container(
-                width: 74,
-                height: 74,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.16),
-                  borderRadius: AppRadius.xl,
-                ),
-                child: const Icon(
-                  Icons.account_balance_rounded,
-                  color: Colors.white,
-                  size: 40,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _HeroCircle extends StatelessWidget {
-  const _HeroCircle({
-    required this.size,
-  });
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white.withValues(alpha: 0.10),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
-import 'package:meu_mobile/features/home/domain/entities/event_entity.dart';
+import 'package:meu_mobile/features/events/domain/entities/campus_event_entity.dart';
 import 'package:meu_mobile/shared/widgets/badges/status_badge.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
@@ -14,11 +14,12 @@ class EventCard extends StatelessWidget {
     this.onTap,
   });
 
-  final EventEntity event;
+  final CampusEventEntity event;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final categoryColor = _categoryColor(event.category);
     final textTheme = Theme.of(context).textTheme;
 
     return AppCard(
@@ -27,30 +28,30 @@ class EventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppIconContainer(
-            icon: Icons.event_available_rounded,
-            iconColor: AppColors.secondary,
-            backgroundColor: AppColors.secondary.withValues(alpha: 0.12),
-            size: 50,
-            iconSize: 26,
+            icon: _categoryIcon(event.category),
+            iconColor: categoryColor,
+            backgroundColor: categoryColor.withValues(alpha: 0.12),
+            size: 46,
+            iconSize: 24,
           ),
           const Gap(AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Wrap(
+                  spacing: AppSpacing.sm,
+                  runSpacing: AppSpacing.xs,
                   children: [
                     StatusBadge(
-                      text: event.date,
-                      foregroundColor: AppColors.secondary,
-                      backgroundColor:
-                          AppColors.secondary.withValues(alpha: 0.12),
+                      text: event.category.label,
+                      foregroundColor: categoryColor,
+                      backgroundColor: categoryColor.withValues(alpha: 0.12),
                     ),
-                    const Gap(AppSpacing.sm),
                     StatusBadge(
-                      text: event.time,
-                      foregroundColor: AppColors.success,
-                      backgroundColor: AppColors.success.withValues(alpha: 0.12),
+                      text: event.date,
+                      foregroundColor: AppColors.primary,
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.10),
                     ),
                   ],
                 ),
@@ -59,33 +60,22 @@ class EventCard extends StatelessWidget {
                   event.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.titleMedium,
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 const Gap(AppSpacing.xs),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: AppColors.textSecondary,
-                    ),
-                    const Gap(AppSpacing.xs),
-                    Expanded(
-                      child: Text(
-                        event.location,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ),
-                  ],
+                Text(
+                  '${event.time} • ${event.location}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ],
             ),
           ),
-          const Gap(AppSpacing.sm),
           const Icon(
             Icons.chevron_right_rounded,
             color: AppColors.textSecondary,
@@ -93,5 +83,35 @@ class EventCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  IconData _categoryIcon(CampusEventCategory category) {
+    switch (category) {
+      case CampusEventCategory.all:
+        return Icons.event_rounded;
+      case CampusEventCategory.conference:
+        return Icons.mic_rounded;
+      case CampusEventCategory.community:
+        return Icons.groups_rounded;
+      case CampusEventCategory.culture:
+        return Icons.theater_comedy_rounded;
+      case CampusEventCategory.sport:
+        return Icons.sports_soccer_rounded;
+    }
+  }
+
+  Color _categoryColor(CampusEventCategory category) {
+    switch (category) {
+      case CampusEventCategory.all:
+        return AppColors.primary;
+      case CampusEventCategory.conference:
+        return AppColors.primary;
+      case CampusEventCategory.community:
+        return AppColors.secondary;
+      case CampusEventCategory.culture:
+        return AppColors.warning;
+      case CampusEventCategory.sport:
+        return AppColors.success;
+    }
   }
 }
