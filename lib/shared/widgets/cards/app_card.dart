@@ -23,12 +23,23 @@ class AppCard extends StatelessWidget {
 
     return Container(
       margin: margin,
+      decoration: BoxDecoration(
+        borderRadius: AppRadius.card,
+        boxShadow: [
+          if (!isDark)
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+            ),
+        ],
+      ),
       child: Material(
         color: isDark ? AppColors.darkSurface : AppColors.surface,
-        borderRadius: AppRadius.lg,
+        borderRadius: AppRadius.card,
         child: InkWell(
           onTap: onTap,
-          borderRadius: AppRadius.lg,
+          borderRadius: AppRadius.card,
           child: Padding(
             padding: padding,
             child: child,

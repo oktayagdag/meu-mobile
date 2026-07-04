@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/home/application/providers/home_mock_provider.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/announcement_card.dart';
@@ -23,14 +24,19 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSpacing.md),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.md,
+            AppSpacing.md,
+            AppSpacing.md,
+            AppSpacing.xl,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const GreetingHeader(),
               const Gap(AppSpacing.lg),
               const DashboardSection(
-                title: 'Bugün Kampüste',
+                title: 'Kampüste Bugün',
                 child: Column(
                   children: [
                     TodayFoodCard(),
@@ -48,12 +54,18 @@ class HomePage extends ConsumerWidget {
               DashboardSection(
                 title: 'Son Duyurular',
                 actionText: 'Tümü',
+                onActionTap: () {
+                  context.go('/announcements');
+                },
                 child: AnnouncementCard(announcement: latestAnnouncement),
               ),
               const Gap(AppSpacing.lg),
               DashboardSection(
                 title: 'Yaklaşan Etkinlik',
                 actionText: 'Tümü',
+                onActionTap: () {
+                  context.go('/events');
+                },
                 child: EventCard(event: upcomingEvent),
               ),
             ],

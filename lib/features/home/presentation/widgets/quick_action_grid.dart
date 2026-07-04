@@ -24,6 +24,7 @@ class QuickActionGrid extends StatelessWidget {
         crossAxisCount: 3,
         mainAxisSpacing: AppSpacing.sm,
         crossAxisSpacing: AppSpacing.sm,
+        mainAxisExtent: 92,
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -40,25 +41,46 @@ class QuickActionGrid extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.10),
+                  color: _backgroundColor(index),
                   borderRadius: AppRadius.md,
                 ),
                 child: Icon(
                   item.icon,
-                  color: AppColors.primary,
-                  size: 24,
+                  color: _iconColor(index),
+                  size: 23,
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 item.title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
               ),
             ],
           ),
         );
       },
     );
+  }
+
+  Color _iconColor(int index) {
+    final colors = [
+      AppColors.primary,
+      AppColors.secondary,
+      AppColors.warning,
+      AppColors.success,
+      AppColors.error,
+      AppColors.primary,
+    ];
+
+    return colors[index % colors.length];
+  }
+
+  Color _backgroundColor(int index) {
+    return _iconColor(index).withValues(alpha: 0.10);
   }
 }

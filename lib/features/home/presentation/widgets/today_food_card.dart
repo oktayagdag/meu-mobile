@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meu_mobile/app/theme/app_colors.dart';
+import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 
@@ -16,22 +18,48 @@ class TodayFoodCard extends StatelessWidget {
         context.go('/food');
       },
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.restaurant_menu_rounded, size: 32),
+          Container(
+            width: 54,
+            height: 54,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.10),
+              borderRadius: AppRadius.lg,
+            ),
+            child: const Icon(
+              Icons.restaurant_menu_rounded,
+              color: AppColors.primary,
+              size: 28,
+            ),
+          ),
           const Gap(AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Bugünkü Yemek', style: textTheme.titleMedium),
-                const Gap(AppSpacing.sm),
+                const Gap(AppSpacing.xs),
                 Text(
-                  'Mercimek Çorbası • Tavuk Sote • Pilav • Ayran',
-                  style: textTheme.bodyMedium,
+                  'Domates Çorbası',
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Gap(AppSpacing.xs),
+                Text(
+                  'Tavuk Döner • Pilav • Ayran',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.labelSmall?.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ],
             ),
+          ),
+          const Icon(
+            Icons.chevron_right_rounded,
+            color: AppColors.textSecondary,
           ),
         ],
       ),
