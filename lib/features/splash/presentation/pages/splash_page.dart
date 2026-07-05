@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/onboarding/application/providers/onboarding_providers.dart';
+import 'package:meu_mobile/app/constants/app_assets.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -44,30 +45,27 @@ class _SplashPageState extends ConsumerState<SplashPage> {
               Container(
                 width: 92,
                 height: 92,
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(28),
                 ),
-                child: const Icon(
-                  Icons.account_balance_rounded,
-                  color: Colors.white,
-                  size: 48,
-                ),
+                child: Image.asset(AppAssets.meuLogo, fit: BoxFit.contain),
               ),
               const Gap(AppSpacing.lg),
               Text(
                 'MEÜ Mobile',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const Gap(AppSpacing.sm),
               Text(
                 'Mersin Üniversitesi Öğrenci Uygulaması',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.86),
-                    ),
+                  color: Colors.white.withValues(alpha: 0.86),
+                ),
               ),
             ],
           ),

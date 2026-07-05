@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/shell/app_shell.dart';
 import 'package:meu_mobile/features/developer/presentation/pages/widget_catalog_page.dart';
@@ -7,7 +6,6 @@ import 'package:meu_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:meu_mobile/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:meu_mobile/features/ring/presentation/pages/ring_page.dart';
 import 'package:meu_mobile/features/splash/presentation/pages/splash_page.dart';
-import 'package:meu_mobile/shared/widgets/states/feature_placeholder_page.dart';
 import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
 import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
 import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.dart';
@@ -15,6 +13,8 @@ import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
 import 'package:meu_mobile/features/clubs/presentation/pages/club_detail_page.dart';
 import 'package:meu_mobile/features/clubs/presentation/pages/clubs_page.dart';
 import 'package:meu_mobile/features/profile/presentation/pages/profile_page.dart';
+import 'package:meu_mobile/features/academic_calendar/presentation/pages/academic_calendar_page.dart';
+import 'package:meu_mobile/features/campus_map/presentation/pages/campus_map_page.dart';
 
 final class AppRouter {
   const AppRouter._();
@@ -68,13 +68,14 @@ final class AppRouter {
                     builder: (context, state) => const RingPage(),
                   ),
                   GoRoute(
-                    path: 'calendar',
-                    name: 'calendar',
-                    builder: (context, state) => const FeaturePlaceholderPage(
-                      title: 'Akademik Takvim',
-                      description: 'Akademik takvim modülü yakında eklenecek.',
-                      icon: Icons.calendar_month_rounded,
-                    ),
+                    path: '/academic-calendar',
+                    name: 'academic-calendar',
+                    builder: (context, state) => const AcademicCalendarPage(),
+                  ),
+                  GoRoute(
+                    path: '/campus-map',
+                    name: 'campus-map',
+                    builder: (context, state) => const CampusMapPage(),
                   ),
                 ],
               ),

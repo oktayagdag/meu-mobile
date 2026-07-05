@@ -4,6 +4,16 @@ import 'package:meu_mobile/features/home/domain/entities/quick_action_entity.dar
 
 final quickActionsProvider = Provider<List<QuickActionEntity>>((ref) {
   return const [
+     QuickActionEntity(
+      title: 'Akademik Takvim',
+      icon: Icons.calendar_month_rounded,
+      route: '/academic-calendar',
+    ),
+    QuickActionEntity(
+      title: 'Harita',
+      icon: Icons.map_rounded,
+      route: '/campus-map',
+    ),
     QuickActionEntity(
       title: 'Yemek',
       icon: Icons.restaurant_menu_rounded,
@@ -13,26 +23,6 @@ final quickActionsProvider = Provider<List<QuickActionEntity>>((ref) {
       title: 'Ring',
       icon: Icons.directions_bus_rounded,
       route: '/ring',
-    ),
-    QuickActionEntity(
-      title: 'Duyurular',
-      icon: Icons.campaign_rounded,
-      route: '/announcements',
-    ),
-    QuickActionEntity(
-      title: 'Etkinlikler',
-      icon: Icons.event_rounded,
-      route: '/events',
-    ),
-    QuickActionEntity(
-      title: 'Topluluklar',
-      icon: Icons.groups_rounded,
-      route: '/clubs',
-    ),
-    QuickActionEntity(
-      title: 'Profil',
-      icon: Icons.person_rounded,
-      route: '/profile',
     ),
   ];
 });

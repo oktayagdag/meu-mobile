@@ -4,6 +4,7 @@ import 'package:meu_mobile/app/theme/app_colors.dart';
 import 'package:meu_mobile/app/theme/app_radius.dart';
 import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
+import 'package:meu_mobile/app/constants/app_assets.dart';
 
 class CampusHeroCard extends StatelessWidget {
   const CampusHeroCard({super.key, this.onExploreTap});
@@ -71,10 +72,9 @@ class CampusHeroCard extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.22),
                     ),
                   ),
-                  child: Icon(
-                    Icons.account_balance_rounded,
-                    size: 52,
-                    color: Colors.white.withValues(alpha: 0.95),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14),
+                    child: Image.asset(AppAssets.meuLogo, fit: BoxFit.contain),
                   ),
                 ),
               ),
