@@ -5,7 +5,6 @@ import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/announcements/domain/entities/announcement_list_item_entity.dart';
 import 'package:meu_mobile/features/events/domain/entities/campus_event_entity.dart';
 import 'package:meu_mobile/features/food/domain/entities/food_entity.dart';
-import 'package:meu_mobile/features/home/domain/entities/quick_action_entity.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/announcement_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/campus_hero_card.dart';
 import 'package:meu_mobile/features/home/presentation/widgets/event_card.dart';
@@ -27,31 +26,19 @@ class WidgetCatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const mockFood = FoodEntity(
-      day: 'Çarşamba',
-      date: '30 Haziran 2026',
-      totalCalories: 820,
-      items: [
-        FoodMenuItemEntity(
-          name: 'Mercimek Çorbası',
-          calories: 120,
-          icon: '🍲',
-        ),
-        FoodMenuItemEntity(
-          name: 'Tavuk Sote',
-          calories: 320,
-          icon: '🍗',
-        ),
-        FoodMenuItemEntity(
-          name: 'Pilav',
-          calories: 260,
-          icon: '🍚',
-        ),
-        FoodMenuItemEntity(
-          name: 'Ayran',
-          calories: 120,
-          icon: '🥛',
-        ),
-      ],
+      id: '2026-07-28',
+      date: '2026-07-28',
+      displayDate: '28 Temmuz 2026',
+      day: 'Salı',
+      mainDish: 'Girit Tava',
+      firstSideDish: 'Bulgur Pilavı',
+      vegetarianDish: 'Mercimekli Patlıcan Dilme',
+      secondSideDish: 'Soğuk Ayranaşı Çorbası',
+      thirdItem: 'Tulumba Tatlısı',
+      meatMixGrams: 100,
+      totalCalories: 1300,
+      isHoliday: false,
+      holidayName: null,
     );
 
     const mockRingRoute = RingRouteEntity(
@@ -75,7 +62,8 @@ class WidgetCatalogPage extends StatelessWidget {
     const mockEvent = CampusEventEntity(
       id: 'catalog-event',
       title: 'Teknoloji Topluluğu Etkinliği',
-      description: 'Yapay zeka ve mobil uygulama geliştirme üzerine öğrenci buluşması.',
+      description:
+          'Yapay zeka ve mobil uygulama geliştirme üzerine öğrenci buluşması.',
       content: 'Etkinlik detay içeriği burada görüntülenir.',
       category: CampusEventCategory.community,
       date: 'Bugün',
@@ -84,43 +72,8 @@ class WidgetCatalogPage extends StatelessWidget {
       organizer: 'Teknoloji Topluluğu',
     );
 
-    const mockQuickActions = [
-      QuickActionEntity(
-        title: 'Yemek',
-        icon: Icons.restaurant_menu_rounded,
-        route: '/food',
-      ),
-      QuickActionEntity(
-        title: 'Ring',
-        icon: Icons.directions_bus_rounded,
-        route: '/ring',
-      ),
-      QuickActionEntity(
-        title: 'Duyuru',
-        icon: Icons.campaign_rounded,
-        route: '/announcements',
-      ),
-      QuickActionEntity(
-        title: 'Etkinlik',
-        icon: Icons.event_rounded,
-        route: '/events',
-      ),
-      QuickActionEntity(
-        title: 'Topluluk',
-        icon: Icons.groups_rounded,
-        route: '/clubs',
-      ),
-      QuickActionEntity(
-        title: 'Profil',
-        icon: Icons.person_rounded,
-        route: '/profile',
-      ),
-    ];
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Widget Catalog'),
-      ),
+      appBar: AppBar(title: const Text('Widget Catalog')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -155,8 +108,8 @@ class WidgetCatalogPage extends StatelessWidget {
                   Text(
                     'Secondary Text',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ],
               ),
@@ -258,37 +211,20 @@ class WidgetCatalogPage extends StatelessWidget {
 
             const AppSectionTitle(title: 'Home Components'),
             const Gap(AppSpacing.sm),
-            CampusHeroCard(
-              onExploreTap: () {},
-            ),
+            CampusHeroCard(onExploreTap: () {}),
             const Gap(AppSpacing.sm),
-            TodayFoodCard(
-              food: mockFood,
-              onTap: () {},
-            ),
+            TodayFoodCard(food: mockFood, onTap: () {}),
             const Gap(AppSpacing.sm),
-            NextRingCard(
-              route: mockRingRoute,
-              onTap: () {},
-            ),
+            NextRingCard(route: mockRingRoute, onTap: () {}),
             const Gap(AppSpacing.sm),
-            AnnouncementCard(
-              announcement: mockAnnouncement,
-              onTap: () {},
-            ),
+            AnnouncementCard(announcement: mockAnnouncement, onTap: () {}),
             const Gap(AppSpacing.sm),
-            EventCard(
-              event: mockEvent,
-              onTap: () {},
-            ),
+            EventCard(event: mockEvent, onTap: () {}),
             const Gap(AppSpacing.lg),
 
             const AppSectionTitle(title: 'Quick Actions'),
             const Gap(AppSpacing.sm),
-            QuickActionGrid(
-              actions: mockQuickActions,
-              onActionTap: (_) {},
-            ),
+            const QuickActionGrid(),
           ],
         ),
       ),
@@ -297,10 +233,7 @@ class WidgetCatalogPage extends StatelessWidget {
 }
 
 class _ColorBox extends StatelessWidget {
-  const _ColorBox({
-    required this.label,
-    required this.color,
-  });
+  const _ColorBox({required this.label, required this.color});
 
   final String label;
   final Color color;
@@ -319,18 +252,15 @@ class _ColorBox extends StatelessWidget {
           Container(
             width: 34,
             height: 34,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const Gap(AppSpacing.sm),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
         ],
       ),

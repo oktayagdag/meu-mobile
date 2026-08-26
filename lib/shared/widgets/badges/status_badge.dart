@@ -7,12 +7,16 @@ class StatusBadge extends StatelessWidget {
     required this.text,
     required this.foregroundColor,
     required this.backgroundColor,
+    this.fontSize,
+    this.fontWeight,
     super.key,
   });
 
   final String text;
   final Color foregroundColor;
   final Color backgroundColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +32,10 @@ class StatusBadge extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: foregroundColor,
-              fontWeight: FontWeight.w800,
-            ),
+          color: foregroundColor,
+          fontSize: fontSize,
+          fontWeight: fontWeight ?? FontWeight.w800,
+        ),
       ),
     );
   }

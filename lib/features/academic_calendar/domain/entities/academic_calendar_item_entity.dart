@@ -1,7 +1,4 @@
-enum AcademicTerm {
-  fall,
-  spring,
-}
+enum AcademicTerm { fall, spring }
 
 extension AcademicTermX on AcademicTerm {
   String get label {

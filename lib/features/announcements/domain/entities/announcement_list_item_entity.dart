@@ -1,9 +1,4 @@
-enum AnnouncementCategory {
-  all,
-  academic,
-  administrative,
-  event,
-}
+enum AnnouncementCategory { all, academic, administrative, event }
 
 extension AnnouncementCategoryX on AnnouncementCategory {
   String get label {

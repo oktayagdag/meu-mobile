@@ -16,14 +16,8 @@ class FeaturePlaceholderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: EmptyState(
-        title: title,
-        description: description,
-        icon: icon,
-      ),
+      appBar: AppBar(title: Text(title)),
+      body: EmptyState(title: title, description: description, icon: icon),
     );
   }
 }

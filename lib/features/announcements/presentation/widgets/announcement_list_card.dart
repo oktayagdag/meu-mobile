@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/announcements/domain/entities/announcement_list_item_entity.dart';
+import 'package:meu_mobile/features/announcements/presentation/theme/announcement_design_tokens.dart';
 import 'package:meu_mobile/shared/widgets/badges/status_badge.dart';
-import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
-import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class AnnouncementListCard extends StatelessWidget {
   const AnnouncementListCard({
@@ -19,74 +16,145 @@ class AnnouncementListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryColor = _categoryColor(announcement.category);
-    final textTheme = Theme.of(context).textTheme;
+    final categoryColor = _categoryColor(
+      announcement.category,
+    );
 
-    return AppCard(
-      onTap: onTap,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppIconContainer(
-            icon: _categoryIcon(announcement.category),
-            iconColor: categoryColor,
-            backgroundColor: categoryColor.withValues(alpha: 0.12),
-            size: 46,
-            iconSize: 24,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Ink(
+          padding: const EdgeInsets.all(14),
+          decoration:
+              AnnouncementDesignTokens.surfaceDecoration(
+            context,
+            accent: categoryColor,
           ),
-          const Gap(AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color:
+                      categoryColor.withValues(alpha: 0.11),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Icon(
+                  _categoryIcon(
+                    announcement.category,
+                  ),
+                  color: categoryColor,
+                  size: 23,
+                ),
+              ),
+              const Gap(12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
-                    StatusBadge(
-                      text: announcement.category.label,
-                      foregroundColor: categoryColor,
-                      backgroundColor: categoryColor.withValues(alpha: 0.12),
+                    Row(
+                      children: [
+                        StatusBadge(
+                          text:
+                              announcement.category.label,
+                          foregroundColor: categoryColor,
+                          backgroundColor: categoryColor
+                              .withValues(alpha: 0.11),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.schedule_rounded,
+                          size: 13,
+                          color: Color(0xFF98A2B3),
+                        ),
+                        const Gap(4),
+                        Flexible(
+                          child: Text(
+                            announcement.timeAgo,
+                            maxLines: 1,
+                            overflow:
+                                TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color:
+                                  AnnouncementDesignTokens
+                                      .secondaryText(
+                                context,
+                              ),
+                              fontSize: 10.5,
+                              fontWeight:
+                                  FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const Spacer(),
+                    const Gap(9),
                     Text(
-                      announcement.timeAgo,
-                      style: textTheme.labelSmall?.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
+                      announcement.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(
+                            color:
+                                AnnouncementDesignTokens
+                                    .primaryText(context),
+                            fontSize: 15,
+                            height: 1.18,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    ),
+                    const Gap(5),
+                    Text(
+                      announcement.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(
+                            color:
+                                AnnouncementDesignTokens
+                                    .secondaryText(context),
+                            fontSize: 12,
+                            height: 1.35,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ],
                 ),
-                const Gap(AppSpacing.sm),
-                Text(
-                  announcement.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+              ),
+              const Gap(8),
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color:
+                      categoryColor.withValues(alpha: 0.09),
+                  shape: BoxShape.circle,
                 ),
-                const Gap(AppSpacing.xs),
-                Text(
-                  announcement.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  color: categoryColor,
+                  size: 20,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const Gap(AppSpacing.sm),
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.textSecondary,
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  IconData _categoryIcon(AnnouncementCategory category) {
+  IconData _categoryIcon(
+    AnnouncementCategory category,
+  ) {
     switch (category) {
       case AnnouncementCategory.all:
         return Icons.campaign_rounded;
@@ -99,16 +167,18 @@ class AnnouncementListCard extends StatelessWidget {
     }
   }
 
-  Color _categoryColor(AnnouncementCategory category) {
+  Color _categoryColor(
+    AnnouncementCategory category,
+  ) {
     switch (category) {
       case AnnouncementCategory.all:
-        return AppColors.primary;
+        return AnnouncementDesignTokens.navy;
       case AnnouncementCategory.academic:
-        return AppColors.success;
+        return AnnouncementDesignTokens.green;
       case AnnouncementCategory.administrative:
-        return AppColors.primary;
+        return AnnouncementDesignTokens.purple;
       case AnnouncementCategory.event:
-        return AppColors.warning;
+        return AnnouncementDesignTokens.orange;
     }
   }
 }

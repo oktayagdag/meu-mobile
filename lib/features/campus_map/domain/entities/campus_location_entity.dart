@@ -1,11 +1,15 @@
 enum CampusLocationCategory {
   all,
-  faculty,
+  units,
+  stops,
+  atms,
+  cafes,
   library,
+  greenAreas,
   cafeteria,
-  transport,
-  administrative,
-  social,
+  dormitories,
+  culture,
+  technology,
 }
 
 extension CampusLocationCategoryX on CampusLocationCategory {
@@ -13,18 +17,36 @@ extension CampusLocationCategoryX on CampusLocationCategory {
     switch (this) {
       case CampusLocationCategory.all:
         return 'Tümü';
-      case CampusLocationCategory.faculty:
-        return 'Fakülte';
+
+      case CampusLocationCategory.units:
+        return 'Fakülteler';
+
+      case CampusLocationCategory.stops:
+        return 'Duraklar';
+
+      case CampusLocationCategory.atms:
+        return 'ATM';
+
+      case CampusLocationCategory.cafes:
+        return 'Kafeler';
+
       case CampusLocationCategory.library:
-        return 'Kütüphane';
+        return 'Kütüphane / Derslik';
+
+      case CampusLocationCategory.greenAreas:
+        return 'Yeşil Alan';
+
       case CampusLocationCategory.cafeteria:
         return 'Yemekhane';
-      case CampusLocationCategory.transport:
-        return 'Ulaşım';
-      case CampusLocationCategory.administrative:
-        return 'İdari';
-      case CampusLocationCategory.social:
-        return 'Sosyal';
+
+      case CampusLocationCategory.dormitories:
+        return 'Yurtlar';
+
+      case CampusLocationCategory.culture:
+        return 'Kültür';
+
+      case CampusLocationCategory.technology:
+        return 'Teknoloji';
     }
   }
 }
@@ -35,16 +57,14 @@ class CampusLocationEntity {
     required this.name,
     required this.description,
     required this.category,
-    required this.campus,
-    required this.walkingTime,
-    required this.addressText,
+    required this.latitude,
+    required this.longitude,
   });
 
   final String id;
   final String name;
   final String description;
   final CampusLocationCategory category;
-  final String campus;
-  final String walkingTime;
-  final String addressText;
+  final double latitude;
+  final double longitude;
 }

@@ -28,11 +28,7 @@ class AppIconContainer extends StatelessWidget {
         color: backgroundColor,
         borderRadius: radius ?? AppRadius.lg,
       ),
-      child: Icon(
-        icon,
-        color: iconColor,
-        size: iconSize,
-      ),
+      child: Icon(icon, color: iconColor, size: iconSize),
     );
   }
 }

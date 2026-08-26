@@ -1,0 +1,21 @@
+flutter_native_splash:
+  color: "#182958"
+  color_dark: "#182958"
+
+  image: assets/images/meu_native_splash.png
+  image_dark: assets/images/meu_native_splash.png
+
+  android: true
+  ios: true
+  web: false
+  fullscreen: true
+
+  android_gravity: center
+  ios_content_mode: center
+
+  android_12:
+    color: "#182958"
+    color_dark: "#182958"
+
+    image: assets/images/meu_native_splash_android12.png
+    image_dark: assets/images/meu_native_splash_android12.png

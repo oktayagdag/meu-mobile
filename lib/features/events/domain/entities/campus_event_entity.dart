@@ -1,10 +1,4 @@
-enum CampusEventCategory {
-  all,
-  conference,
-  community,
-  culture,
-  sport,
-}
+enum CampusEventCategory { all, conference, community, culture, sport }
 
 extension CampusEventCategoryX on CampusEventCategory {
   String get label {

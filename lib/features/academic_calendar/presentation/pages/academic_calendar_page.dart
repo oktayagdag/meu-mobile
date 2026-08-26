@@ -19,9 +19,7 @@ class AcademicCalendarPage extends ConsumerWidget {
     final items = ref.watch(selectedAcademicCalendarItemsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Akademik Takvim'),
-      ),
+      appBar: AppBar(title: const Text('Akademik Takvim')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.md,
@@ -91,24 +89,24 @@ class _AcademicCalendarHero extends StatelessWidget {
                 Text(
                   '2026-2027',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.90),
-                        fontWeight: FontWeight.w900,
-                      ),
+                    color: Colors.white.withValues(alpha: 0.90),
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 const Gap(AppSpacing.xs),
                 Text(
                   'Eğitim-Öğretim Yılı',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                      ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 const Gap(AppSpacing.xs),
                 Text(
                   'Güz ve bahar yarıyılı akademik tarihleri',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.90),
-                      ),
+                    color: Colors.white.withValues(alpha: 0.90),
+                  ),
                 ),
               ],
             ),
@@ -120,9 +118,7 @@ class _AcademicCalendarHero extends StatelessWidget {
 }
 
 class _TermTitleCard extends StatelessWidget {
-  const _TermTitleCard({
-    required this.term,
-  });
+  const _TermTitleCard({required this.term});
 
   final AcademicTerm term;
 
@@ -145,9 +141,9 @@ class _TermTitleCard extends StatelessWidget {
       child: Text(
         isFall ? 'Güz Yarıyılı' : 'Bahar Yarıyılı',
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: isFall ? AppColors.warning : AppColors.secondary,
-              fontWeight: FontWeight.w900,
-            ),
+          color: isFall ? AppColors.warning : AppColors.secondary,
+          fontWeight: FontWeight.w900,
+        ),
       ),
     );
   }
@@ -163,10 +159,10 @@ class _AcademicCalendarNote extends StatelessWidget {
       'Mersin Meslek Yüksekokulu ve Yabancı Diller Yüksekokulu Hazırlık Sınıfı '
       'öğrencileri haricindeki yarıyıllık ön lisans ve lisans programlarını kapsar.',
       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: AppColors.textSecondary,
-            height: 1.4,
-            fontWeight: FontWeight.w600,
-          ),
+        color: AppColors.textSecondary,
+        height: 1.4,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 }

@@ -30,9 +30,9 @@ final quickActionsProvider = Provider<List<QuickActionEntity>>((ref) {
       route: '/clubs',
     ),
     QuickActionEntity(
-      title: 'Profil',
-      icon: Icons.person_rounded,
-      route: '/profile',
+      title: 'Ayarlar',
+      icon: Icons.settings_rounded,
+      route: '/settings',
     ),
   ];
 });

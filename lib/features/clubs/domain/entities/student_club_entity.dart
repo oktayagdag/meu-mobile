@@ -1,11 +1,4 @@
-enum StudentClubCategory {
-  all,
-  technology,
-  culture,
-  sport,
-  social,
-  science,
-}
+enum StudentClubCategory { all, technology, culture, sport, social, science }
 
 extension StudentClubCategoryX on StudentClubCategory {
   String get label {

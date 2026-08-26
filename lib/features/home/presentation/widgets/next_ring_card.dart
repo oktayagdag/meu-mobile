@@ -7,11 +7,7 @@ import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class NextRingCard extends StatelessWidget {
-  const NextRingCard({
-    required this.route,
-    super.key,
-    this.onTap,
-  });
+  const NextRingCard({required this.route, super.key, this.onTap});
 
   final RingRouteEntity route;
   final VoidCallback? onTap;
@@ -38,8 +34,12 @@ class NextRingCard extends StatelessWidget {
               children: [
                 Text(
                   'Sıradaki Ring',
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontSize: 16,
+                    height: 1.10,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Gap(AppSpacing.xs),

@@ -7,10 +7,7 @@ import 'package:meu_mobile/features/academic_calendar/domain/entities/academic_c
 import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 
 class AcademicCalendarTable extends StatelessWidget {
-  const AcademicCalendarTable({
-    required this.items,
-    super.key,
-  });
+  const AcademicCalendarTable({required this.items, super.key});
 
   final List<AcademicCalendarItemEntity> items;
 
@@ -66,9 +63,9 @@ class _TableHeader extends StatelessWidget {
             child: Text(
               'Etkinlik',
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
           Expanded(
@@ -77,9 +74,9 @@ class _TableHeader extends StatelessWidget {
               'Başlangıç',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
           Expanded(
@@ -88,9 +85,9 @@ class _TableHeader extends StatelessWidget {
               'Bitiş',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
         ],
@@ -100,9 +97,7 @@ class _TableHeader extends StatelessWidget {
 }
 
 class _CalendarTableRow extends StatelessWidget {
-  const _CalendarTableRow({
-    required this.item,
-  });
+  const _CalendarTableRow({required this.item});
 
   final AcademicCalendarItemEntity item;
 
@@ -128,15 +123,9 @@ class _CalendarTableRow extends StatelessWidget {
             ),
           ),
           const Gap(AppSpacing.sm),
-          Expanded(
-            flex: 2,
-            child: _DatePill(text: item.startDate),
-          ),
+          Expanded(flex: 2, child: _DatePill(text: item.startDate)),
           const Gap(AppSpacing.sm),
-          Expanded(
-            flex: 2,
-            child: _DatePill(text: item.endDate),
-          ),
+          Expanded(flex: 2, child: _DatePill(text: item.endDate)),
         ],
       ),
     );
@@ -144,34 +133,31 @@ class _CalendarTableRow extends StatelessWidget {
 }
 
 class _DatePill extends StatelessWidget {
-  const _DatePill({
-    required this.text,
-  });
+  const _DatePill({required this.text});
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 6,
-        vertical: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: AppRadius.sm,
-        border: Border.all(
-          color: Colors.black.withValues(alpha: 0.04),
-        ),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.04)),
       ),
       alignment: Alignment.center,
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.w900,
-              color: AppColors.textPrimary,
-            ),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.w900,
+            color: AppColors.textPrimary,
+          ),
+        ),
       ),
     );
   }

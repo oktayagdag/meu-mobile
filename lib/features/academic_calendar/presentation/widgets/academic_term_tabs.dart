@@ -71,9 +71,9 @@ class _TermTabButton extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: selected ? Colors.white : AppColors.textSecondary,
-                  fontWeight: FontWeight.w900,
-                ),
+              color: selected ? Colors.white : AppColors.textSecondary,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
       ),

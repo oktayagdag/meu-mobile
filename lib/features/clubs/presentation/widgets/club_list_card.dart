@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_spacing.dart';
 import 'package:meu_mobile/features/clubs/domain/entities/student_club_entity.dart';
+import 'package:meu_mobile/features/clubs/presentation/theme/club_design_tokens.dart';
 import 'package:meu_mobile/shared/widgets/badges/status_badge.dart';
-import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
-import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class ClubListCard extends StatelessWidget {
   const ClubListCard({
     required this.club,
-    super.key,
     this.onTap,
+    super.key,
   });
 
   final StudentClubEntity club;
@@ -19,90 +16,150 @@ class ClubListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryColor = _categoryColor(club.category);
-    final textTheme = Theme.of(context).textTheme;
+    final categoryColor = _categoryColor(
+      club.category,
+    );
 
-    return AppCard(
-      onTap: onTap,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppIconContainer(
-            icon: _categoryIcon(club.category),
-            iconColor: categoryColor,
-            backgroundColor: categoryColor.withValues(alpha: 0.12),
-            size: 48,
-            iconSize: 25,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Ink(
+          padding: const EdgeInsets.all(14),
+          decoration: ClubDesignTokens.surfaceDecoration(
+            context,
+            accent: categoryColor,
           ),
-          const Gap(AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                StatusBadge(
-                  text: club.category.label,
-                  foregroundColor: categoryColor,
-                  backgroundColor: categoryColor.withValues(alpha: 0.12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color:
+                      categoryColor.withValues(alpha: 0.11),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                const Gap(AppSpacing.sm),
-                Text(
-                  club.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
+                child: Icon(
+                  _categoryIcon(club.category),
+                  color: categoryColor,
+                  size: 23,
                 ),
-                const Gap(AppSpacing.xs),
-                Text(
-                  club.shortDescription,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                const Gap(AppSpacing.sm),
-                Row(
+              ),
+              const Gap(12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
-                    const Icon(
-                      Icons.groups_rounded,
-                      size: 16,
-                      color: AppColors.textSecondary,
+                    Row(
+                      children: [
+                        StatusBadge(
+                          text: club.category.label,
+                          foregroundColor: categoryColor,
+                          backgroundColor: categoryColor
+                              .withValues(alpha: 0.11),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.groups_rounded,
+                          size: 14,
+                          color:
+                              ClubDesignTokens.secondaryText(
+                            context,
+                          ),
+                        ),
+                        const Gap(4),
+                        Text(
+                          '${club.memberCount} üye',
+                          style: TextStyle(
+                            color:
+                                ClubDesignTokens.secondaryText(
+                              context,
+                            ),
+                            fontSize: 10.8,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Gap(AppSpacing.xs),
+                    const Gap(9),
                     Text(
-                      '${club.memberCount} üye',
-                      style: textTheme.labelSmall?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      club.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(
+                            color:
+                                ClubDesignTokens.primaryText(
+                              context,
+                            ),
+                            fontSize: 15,
+                            height: 1.18,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    ),
+                    const Gap(5),
+                    Text(
+                      club.shortDescription,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(
+                            color:
+                                ClubDesignTokens.secondaryText(
+                              context,
+                            ),
+                            fontSize: 12,
+                            height: 1.35,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const Gap(8),
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color:
+                      categoryColor.withValues(alpha: 0.09),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  color: categoryColor,
+                  size: 20,
+                ),
+              ),
+            ],
           ),
-          const Gap(AppSpacing.sm),
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.textSecondary,
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  IconData _categoryIcon(StudentClubCategory category) {
+  IconData _categoryIcon(
+    StudentClubCategory category,
+  ) {
     switch (category) {
       case StudentClubCategory.all:
         return Icons.groups_rounded;
       case StudentClubCategory.technology:
-        return Icons.memory_rounded;
+        return Icons.computer_rounded;
       case StudentClubCategory.culture:
-        return Icons.theater_comedy_rounded;
+        return Icons.palette_rounded;
       case StudentClubCategory.sport:
-        return Icons.sports_soccer_rounded;
+        return Icons.sports_basketball_rounded;
       case StudentClubCategory.social:
         return Icons.volunteer_activism_rounded;
       case StudentClubCategory.science:
@@ -110,20 +167,22 @@ class ClubListCard extends StatelessWidget {
     }
   }
 
-  Color _categoryColor(StudentClubCategory category) {
+  Color _categoryColor(
+    StudentClubCategory category,
+  ) {
     switch (category) {
       case StudentClubCategory.all:
-        return AppColors.primary;
+        return ClubDesignTokens.navy;
       case StudentClubCategory.technology:
-        return AppColors.primary;
+        return ClubDesignTokens.purple;
       case StudentClubCategory.culture:
-        return AppColors.warning;
+        return ClubDesignTokens.orange;
       case StudentClubCategory.sport:
-        return AppColors.success;
+        return ClubDesignTokens.green;
       case StudentClubCategory.social:
-        return AppColors.secondary;
+        return ClubDesignTokens.teal;
       case StudentClubCategory.science:
-        return AppColors.error;
+        return ClubDesignTokens.red;
     }
   }
 }

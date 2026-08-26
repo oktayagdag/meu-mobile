@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_radius.dart';
-import 'package:meu_mobile/app/theme/app_spacing.dart';
-import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/app/constants/app_assets.dart';
+import 'package:meu_mobile/app/theme/app_radius.dart';
+import 'package:meu_mobile/features/home/presentation/theme/home_design_tokens.dart';
+import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 
 class CampusHeroCard extends StatelessWidget {
   const CampusHeroCard({super.key, this.onExploreTap});
@@ -13,150 +12,172 @@ class CampusHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    final backgroundColor = isDark ? theme.colorScheme.surface : Colors.white;
+
+    final primaryTextColor = isDark ? Colors.white : HomeDesignTokens.navy;
+
+    final secondaryTextColor = isDark
+        ? Colors.white.withValues(alpha: 0.62)
+        : const Color(0xFF667085);
 
     return AppCard(
       padding: EdgeInsets.zero,
-      child: Container(
-        width: double.infinity,
-        constraints: const BoxConstraints(minHeight: 160),
-        decoration: BoxDecoration(
-          borderRadius: AppRadius.card,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.primary,
-              AppColors.secondary.withValues(alpha: 0.95),
-            ],
+      onTap: onExploreTap,
+      child: SizedBox(
+        height: 200,
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: AppRadius.card,
+            border: Border.all(
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.07)
+                  : HomeDesignTokens.navy.withValues(alpha: 0.07),
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              right: -42,
-              top: -38,
-              child: Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.08),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 20,
-              bottom: -34,
-              child: Container(
-                width: 110,
-                height: 110,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.07),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 22,
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: Container(
-                  width: 96,
-                  height: 96,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white.withValues(alpha: 0.15),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.22),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(14),
-                    child: Image.asset(AppAssets.meuLogo, fit: BoxFit.contain),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 112),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: 6,
-                      ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                children: [
+                  Positioned(
+                    right: -38,
+                    top: -46,
+                    child: Container(
+                      width: 170,
+                      height: 170,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.14),
-                        borderRadius: AppRadius.sm,
+                        shape: BoxShape.circle,
+                        color: HomeDesignTokens.orange.withValues(alpha: 0.10),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: -18,
+                    bottom: -62,
+                    child: Container(
+                      width: 145,
+                      height: 145,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                         border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.18),
-                        ),
-                      ),
-                      child: Text(
-                        'Mersin Üniversitesi',
-                        style: textTheme.labelSmall?.copyWith(
-                          color: Colors.white.withValues(alpha: 0.92),
-                          fontWeight: FontWeight.w800,
+                          color: HomeDesignTokens.navy.withValues(alpha: 0.06),
                         ),
                       ),
                     ),
-                    const Gap(AppSpacing.sm),
-                    Text(
-                      'MEÜ Mobile',
-                      style: textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: -0.4,
-                      ),
-                    ),
-                    const Gap(AppSpacing.xs),
-                    Text(
-                      'Kampüs yaşamı için ihtiyacın olan bilgiler tek yerde.',
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.90),
-                        height: 1.35,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Gap(AppSpacing.md),
-                    InkWell(
-                      onTap: onExploreTap,
-                      borderRadius: AppRadius.md,
+                  ),
+                  Positioned(
+                    right: 22,
+                    top: 0,
+                    bottom: 0,
+                    child: Center(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.md,
-                          vertical: 9,
-                        ),
+                        width: 82,
+                        height: 82,
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.18),
-                          borderRadius: AppRadius.md,
+                          color: HomeDesignTokens.orange.withValues(
+                            alpha: 0.09,
+                          ),
+                          shape: BoxShape.circle,
                           border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.26),
+                            color: HomeDesignTokens.orange.withValues(
+                              alpha: 0.20,
+                            ),
                           ),
                         ),
-                        child: Text(
-                          'Kampüsü keşfet',
-                          style: textTheme.labelSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
+                        child: Image.asset(
+                          AppAssets.meuLogo,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 10,
+                      ),
+                      child: SizedBox(
+                        width: constraints.maxWidth * 0.62,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'MEUMOBİL',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: primaryTextColor,
+                                  fontSize: 16,
+                                  height: 1.05,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: 0.35,
+                                ),
+                              ),
+                              const Gap(4),
+                              Text(
+                                'Kampüs yaşamına tek noktadan eriş.',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      color: secondaryTextColor,
+                                      fontSize: 11,
+                                      height: 1.15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              const Gap(7),
+                              SizedBox(
+                                height: 31,
+                                child: FilledButton.icon(
+                                  onPressed: onExploreTap,
+                                  style: FilledButton.styleFrom(
+                                    backgroundColor: HomeDesignTokens.orange,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 11,
+                                    ),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(9),
+                                    ),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.explore_rounded,
+                                    size: 15,
+                                  ),
+                                  label: const Text(
+                                    'Kampüsü Keşfet',
+                                    style: TextStyle(
+                                      fontSize: 11.5,
+                                      height: 1,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

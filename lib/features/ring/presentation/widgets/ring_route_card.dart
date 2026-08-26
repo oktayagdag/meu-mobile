@@ -7,10 +7,7 @@ import 'package:meu_mobile/shared/widgets/cards/app_card.dart';
 import 'package:meu_mobile/shared/widgets/icons/app_icon_container.dart';
 
 class RingRouteCard extends StatelessWidget {
-  const RingRouteCard({
-    required this.route,
-    super.key,
-  });
+  const RingRouteCard({required this.route, super.key});
 
   final RingRouteEntity route;
 

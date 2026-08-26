@@ -1,94 +1,133 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meu_mobile/app/shell/app_shell.dart';
+import 'package:meu_mobile/features/academic_calendar/presentation/pages/academic_calendar_page.dart';
+import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
+import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
+import 'package:meu_mobile/features/campus_map/presentation/pages/campus_map_page.dart';
+import 'package:meu_mobile/features/clubs/presentation/pages/club_detail_page.dart';
+import 'package:meu_mobile/features/clubs/presentation/pages/clubs_page.dart';
 import 'package:meu_mobile/features/developer/presentation/pages/widget_catalog_page.dart';
+import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.dart';
+import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
 import 'package:meu_mobile/features/food/presentation/pages/food_page.dart';
 import 'package:meu_mobile/features/home/presentation/pages/home_page.dart';
 import 'package:meu_mobile/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:meu_mobile/features/ring/presentation/pages/ring_page.dart';
+import 'package:meu_mobile/features/settings/presentation/pages/settings_page.dart';
 import 'package:meu_mobile/features/splash/presentation/pages/splash_page.dart';
-import 'package:meu_mobile/features/announcements/presentation/pages/announcements_page.dart';
-import 'package:meu_mobile/features/announcements/presentation/pages/announcement_detail_page.dart';
-import 'package:meu_mobile/features/events/presentation/pages/event_detail_page.dart';
-import 'package:meu_mobile/features/events/presentation/pages/events_page.dart';
-import 'package:meu_mobile/features/clubs/presentation/pages/club_detail_page.dart';
-import 'package:meu_mobile/features/clubs/presentation/pages/clubs_page.dart';
-import 'package:meu_mobile/features/profile/presentation/pages/profile_page.dart';
-import 'package:meu_mobile/features/academic_calendar/presentation/pages/academic_calendar_page.dart';
-import 'package:meu_mobile/features/campus_map/presentation/pages/campus_map_page.dart';
+import 'package:meu_mobile/features/notifications/pages/notifications_page.dart';
 
 final class AppRouter {
   const AppRouter._();
 
   static final GoRouter router = GoRouter(
     initialLocation: '/splash',
+    overridePlatformDefaultLocation: true,
     routes: [
-      /// Splash - Shell dışında, tam ekran
       GoRoute(
         path: '/splash',
         name: 'splash',
-        builder: (context, state) => const SplashPage(),
+        builder: (context, state) {
+          return const SplashPage();
+        },
       ),
-
-      /// Onboarding - Shell dışında, tam ekran
       GoRoute(
         path: '/onboarding',
         name: 'onboarding',
-        builder: (context, state) => const OnboardingPage(),
-      ),
+        pageBuilder: (context, state) {
+          return CustomTransitionPage<void>(
+            key: state.pageKey,
+            transitionDuration: const Duration(milliseconds: 420),
+            reverseTransitionDuration: const Duration(milliseconds: 260),
+            child: const OnboardingPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  final curvedAnimation = CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutCubic,
+                  );
 
-      /// Developer Widget Catalog - Shell dışında
+                  return FadeTransition(
+                    opacity: curvedAnimation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 0.025),
+                        end: Offset.zero,
+                      ).animate(curvedAnimation),
+                      child: child,
+                    ),
+                  );
+                },
+          );
+        },
+      ),
       GoRoute(
         path: '/dev/catalog',
         name: 'widget-catalog',
-        builder: (context, state) => const WidgetCatalogPage(),
+        builder: (context, state) {
+          return const WidgetCatalogPage();
+        },
       ),
-
-      /// Main App Shell - Bottom Navigation burada başlar
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return AppShell(navigationShell: navigationShell);
         },
         branches: [
-          /// Ana Sayfa branch
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/',
                 name: 'home',
-                builder: (context, state) => const HomePage(),
+                builder: (context, state) {
+                  return const HomePage();
+                },
                 routes: [
+                  GoRoute(
+                    path: '/notifications',
+                    name: 'notifications',
+                    builder: (context, state) => const NotificationsPage(),
+                  ),
                   GoRoute(
                     path: 'food',
                     name: 'food',
-                    builder: (context, state) => const FoodPage(),
+                    builder: (context, state) {
+                      return const FoodPage();
+                    },
                   ),
                   GoRoute(
                     path: 'ring',
                     name: 'ring',
-                    builder: (context, state) => const RingPage(),
+                    builder: (context, state) {
+                      return const RingPage();
+                    },
                   ),
                   GoRoute(
                     path: '/academic-calendar',
                     name: 'academic-calendar',
-                    builder: (context, state) => const AcademicCalendarPage(),
+                    builder: (context, state) {
+                      return const AcademicCalendarPage();
+                    },
                   ),
                   GoRoute(
                     path: '/campus-map',
                     name: 'campus-map',
-                    builder: (context, state) => const CampusMapPage(),
+                    builder: (context, state) {
+                      return const CampusMapPage();
+                    },
                   ),
                 ],
               ),
             ],
           ),
-
-          /// Duyurular branch
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/announcements',
                 name: 'announcements',
-                builder: (context, state) => const AnnouncementsPage(),
+                builder: (context, state) {
+                  return const AnnouncementsPage();
+                },
                 routes: [
                   GoRoute(
                     path: ':announcementId',
@@ -106,14 +145,14 @@ final class AppRouter {
               ),
             ],
           ),
-
-          /// Etkinlikler branch
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/events',
                 name: 'events',
-                builder: (context, state) => const EventsPage(),
+                builder: (context, state) {
+                  return const EventsPage();
+                },
                 routes: [
                   GoRoute(
                     path: ':eventId',
@@ -128,14 +167,14 @@ final class AppRouter {
               ),
             ],
           ),
-
-          /// Topluluklar branch
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/clubs',
                 name: 'clubs',
-                builder: (context, state) => const ClubsPage(),
+                builder: (context, state) {
+                  return const ClubsPage();
+                },
                 routes: [
                   GoRoute(
                     path: ':clubId',
@@ -150,14 +189,14 @@ final class AppRouter {
               ),
             ],
           ),
-
-          /// Profil branch
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/profile',
-                name: 'profile',
-                builder: (context, state) => const ProfilePage(),
+                path: '/settings',
+                name: 'settings',
+                builder: (context, state) {
+                  return const SettingsPage();
+                },
               ),
             ],
           ),

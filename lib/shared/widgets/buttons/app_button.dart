@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_mobile/app/theme/app_radius.dart';
 
-enum AppButtonType {
-  primary,
-  secondary,
-}
+enum AppButtonType { primary, secondary }
 
 class AppButton extends StatelessWidget {
   const AppButton({

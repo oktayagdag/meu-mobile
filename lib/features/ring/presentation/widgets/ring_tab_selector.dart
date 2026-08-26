@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_mobile/app/theme/app_colors.dart';
-import 'package:meu_mobile/app/theme/app_spacing.dart';
-import 'package:meu_mobile/features/ring/application/providers/ring_mock_provider.dart';
+import 'package:meu_mobile/features/ring/application/providers/ring_provider.dart';
 
 class RingTabSelector extends StatelessWidget {
   const RingTabSelector({
@@ -16,65 +15,44 @@ class RingTabSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        _TabItem(
-          title: 'Hatlar',
-          selected: selectedTab == RingTab.routes,
-          onTap: () => onSelected(RingTab.routes),
-        ),
-        _TabItem(
-          title: 'Favorilerim',
-          selected: selectedTab == RingTab.favorites,
-          onTap: () => onSelected(RingTab.favorites),
-        ),
-      ],
-    );
-  }
-}
+      children: RingTab.values.map((tab) {
+        final isSelected = selectedTab == tab;
 
-class _TabItem extends StatelessWidget {
-  const _TabItem({
-    required this.title,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String title;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.only(top: AppSpacing.sm),
-          child: Column(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: selected
-                          ? AppColors.primary
-                          : AppColors.textSecondary,
-                      fontWeight: FontWeight.w800,
-                    ),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              AnimatedContainer(
+        return Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(right: tab != RingTab.values.last ? 8 : 0),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                onSelected(tab);
+              },
+              child: AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
-                height: 2,
-                width: selected ? 72 : 0,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 11,
+                  horizontal: 4,
+                ),
                 decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(99),
+                  color: isSelected
+                      ? AppColors.primary
+                      : AppColors.primary.withValues(alpha: 0.07),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  tab.label,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: isSelected ? Colors.white : AppColors.textPrimary,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }).toList(),
     );
   }
 }

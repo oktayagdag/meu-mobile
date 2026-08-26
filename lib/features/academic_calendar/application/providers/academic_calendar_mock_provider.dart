@@ -3,8 +3,8 @@ import 'package:meu_mobile/features/academic_calendar/domain/entities/academic_c
 
 final selectedAcademicTermProvider =
     NotifierProvider<SelectedAcademicTermNotifier, AcademicTerm>(
-  SelectedAcademicTermNotifier.new,
-);
+      SelectedAcademicTermNotifier.new,
+    );
 
 class SelectedAcademicTermNotifier extends Notifier<AcademicTerm> {
   @override
@@ -17,8 +17,9 @@ class SelectedAcademicTermNotifier extends Notifier<AcademicTerm> {
   }
 }
 
-final fallAcademicCalendarItemsProvider =
-    Provider<List<AcademicCalendarItemEntity>>((ref) {
+final fallAcademicCalendarItemsProvider = Provider<List<AcademicCalendarItemEntity>>((
+  ref,
+) {
   return const [
     AcademicCalendarItemEntity(
       title:
@@ -69,8 +70,7 @@ final fallAcademicCalendarItemsProvider =
       endDate: '31.01.2027',
     ),
     AcademicCalendarItemEntity(
-      title:
-          'Bütünleme Sınav Sonuçlarının Girişi ve İnternet Ortamında İlanı',
+      title: 'Bütünleme Sınav Sonuçlarının Girişi ve İnternet Ortamında İlanı',
       startDate: '23.01.2027',
       endDate: '03.02.2027',
     ),
@@ -88,8 +88,9 @@ final fallAcademicCalendarItemsProvider =
   ];
 });
 
-final springAcademicCalendarItemsProvider =
-    Provider<List<AcademicCalendarItemEntity>>((ref) {
+final springAcademicCalendarItemsProvider = Provider<List<AcademicCalendarItemEntity>>((
+  ref,
+) {
   return const [
     AcademicCalendarItemEntity(
       title:
@@ -141,8 +142,7 @@ final springAcademicCalendarItemsProvider =
       endDate: '04.07.2027',
     ),
     AcademicCalendarItemEntity(
-      title:
-          'Bütünleme Sınav Sonuçlarının Girişi ve İnternet Ortamında İlanı',
+      title: 'Bütünleme Sınav Sonuçlarının Girişi ve İnternet Ortamında İlanı',
       startDate: '26.06.2027',
       endDate: '07.07.2027',
     ),
@@ -162,12 +162,12 @@ final springAcademicCalendarItemsProvider =
 
 final selectedAcademicCalendarItemsProvider =
     Provider<List<AcademicCalendarItemEntity>>((ref) {
-  final selectedTerm = ref.watch(selectedAcademicTermProvider);
+      final selectedTerm = ref.watch(selectedAcademicTermProvider);
 
-  switch (selectedTerm) {
-    case AcademicTerm.fall:
-      return ref.watch(fallAcademicCalendarItemsProvider);
-    case AcademicTerm.spring:
-      return ref.watch(springAcademicCalendarItemsProvider);
-  }
-});
+      switch (selectedTerm) {
+        case AcademicTerm.fall:
+          return ref.watch(fallAcademicCalendarItemsProvider);
+        case AcademicTerm.spring:
+          return ref.watch(springAcademicCalendarItemsProvider);
+      }
+    });
