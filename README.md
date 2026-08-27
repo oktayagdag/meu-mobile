@@ -81,17 +81,9 @@ flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8080/api/
 
 Öncelikle bilgisayarınızın yerel IPv4 adresini öğrenin.
 
-Windows:
-
-ipconfig
-
-macOS / Linux:
-
-ifconfig
-
-veya:
-
-ip a
+Windows: ipconfig
+macOS / Linux: ifconfig
+veya: ip a
 
 Ardından bilgisayarınızın IPv4 adresini kullanarak uygulamayı çalıştırın:
 
