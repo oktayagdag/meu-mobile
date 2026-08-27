@@ -56,12 +56,17 @@ Her feature kendi içinde domain, application ve presentation katmanlarına ayr�
 
 Android emülatöründe bilgisayarınızın localhost adresine erişmek için 10.0.2.2 IP adresi kullanılır:
 
+```text
 flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080/api/
-🌐 Web / Desktop
+```
 
+🌐 Web / Desktop
 Web veya masaüstü uygulamalarında doğrudan localhost kullanılabilir:
 
+```text
 flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8080/api/
+```
+
 📲 Fiziksel Cihaz (Gerçek Telefon)
 
 Önemli: Bilgisayarınız ve telefonunuz aynı Wi-Fi ağına bağlı olmalıdır.
@@ -91,6 +96,8 @@ flutter run --dart-define=API_BASE_URL=http://192.168.1.XX:8080/api/
 
 Bilgisayarınızın IP adresi 192.168.1.35 ise:
 
+```text
 flutter run --dart-define=API_BASE_URL=http://192.168.1.35:8080/api/
+```
 
 Not: Telefonun backend servisine erişebilmesi için Docker konteynerinin 8080 portunun dışarıya açık olduğundan ve güvenlik duvarının bağlantıyı engellemediğinden emin olun.
