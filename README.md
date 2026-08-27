@@ -48,7 +48,7 @@ lib/
 Her feature kendi içinde domain, application ve presentation katmanlarına ayrılır.
 ```
 
-📱 Adım 2: Flutter Uygulamasını Yerel API'ye Bağlama
+# Flutter Uygulamasını Yerel API'ye Bağlama
 
 Çalıştırdığınız platforma göre uygun API_BASE_URL değerini kullanın.
 
@@ -82,8 +82,9 @@ ip a
 
 Ardından bilgisayarınızın IPv4 adresini kullanarak uygulamayı çalıştırın:
 
+```text
 flutter run --dart-define=API_BASE_URL=http://192.168.1.XX:8080/api/
-
+```
 192.168.1.XX kısmını kendi bilgisayarınızın yerel IP adresiyle değiştirin.
 
 Örnek
