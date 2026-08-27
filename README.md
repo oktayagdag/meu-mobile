@@ -48,6 +48,14 @@ lib/
 Her feature kendi içinde domain, application ve presentation katmanlarına ayrılır.
 ```
 
+# Canlı Ortam (Railway Backend) ile Çalıştırma
+Uygulama varsayılan olarak canlı Railway sunucusuna bağlanacak şekilde yapılandırılmıştır. Doğrudan çalıştırmak için:
+
+Bash
+```text
+flutter run
+```
+
 # Flutter Uygulamasını Yerel API'ye Bağlama
 
 Çalıştırdığınız platforma göre uygun API_BASE_URL değerini kullanın.
